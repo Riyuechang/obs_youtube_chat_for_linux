@@ -29,24 +29,38 @@
 
             // Socket.IO send_message message
             socket.on('send_message', function (data) {
-                var brDiv = document.createElement('br');
-                var background_image_1 = document.createElement('div');
-                var background_image_2 = document.createElement('div');
+                var author_name_line_spacing = document.createElement('br');
+                var author_name = document.createElement('div');
+                var author_name_background_image_1 = document.createElement('div');
+
+                var message_line_spacing = document.createElement('br');
                 var message = document.createElement('div');
+                var message_background_image_1 = document.createElement('div');
+                var message_background_image_2 = document.createElement('div');
 
-                message.className = "message_box";
-                message.textContent = data.author_name + ": " + data.message;
+                author_name.className = "scope_box text_basic_settings author_name_literal_parameters";
+                author_name.textContent = data.author_name;
 
-                background_image_1.className = "background_image_1"
-                background_image_1.appendChild(message);
+                author_name_background_image_1.className = "author_name_background_image_1 image_basic_settings";
+                author_name_background_image_1.appendChild(author_name);
 
-                background_image_2.className = "background_image_2"
-                background_image_2.appendChild(background_image_1);
+                author_name_line_spacing.className = "line_spacing_basic_settings";
 
-                //brDiv.className = "font-size:10px;"
-                //brDiv.appendChild(textDiv)
-                document.getElementById('text_to_display').appendChild(background_image_2);
-                document.getElementById('text_to_display').appendChild(brDiv);
+                message.className = "scope_box text_basic_settings message_literal_parameters";
+                message.textContent = data.message;
+
+                message_background_image_1.className = "message_background_image_1 image_basic_settings";
+                message_background_image_1.appendChild(message);
+
+                message_background_image_2.className = "message_background_image_2 image_basic_settings";
+                message_background_image_2.appendChild(message_background_image_1);
+
+                message_line_spacing.className = "line_spacing_basic_settings";
+                
+                document.getElementById('text_to_display').appendChild(author_name_background_image_1);
+                document.getElementById('text_to_display').appendChild(author_name_line_spacing);
+                document.getElementById('text_to_display').appendChild(message_background_image_2);
+                document.getElementById('text_to_display').appendChild(message_line_spacing);
             });
 
             // Socket.IO clear
@@ -58,12 +72,6 @@
         var scroll = setInterval(function(){window.scrollTo(0, document.body.scrollHeight)},100);
     </script>
     <style>
-        br {
-            content:"";
-            margin: 0.5em;
-            display:block;
-        }
-
         .Display_range {
             width: 100vw;
             height: 100vh;
@@ -76,50 +84,68 @@
             text-align: left;
         }
 
-        .Literal_parameters {
-            font-size:16px;
-            line-height:1.2;
-            color: #333;
-            /*text-shadow: -1px -1px 0 #000,
-                            1px -1px 0 #000,
-                            -1px 1px 0 #000,
-                            1px 1px 0 #000;*/
-
-            /*word-break:break-all;*/
-            /*word-wrap:break-word;*/
-            /*white-space:pre-line;*/
-            overflow-wrap: break-word;
-            white-space:pre-wrap; 
-            font-family: "Noto Sans TC", sans-serif;
-        }
-        
-        .message_box {
-            max-width: 95vw;
+        .scope_box {
+            max-width: 90vw;
             width: 100%;
             height: 100%;
         }
 
-        .background_image_1 {
-            padding: 5px;
-            background-image: url("./static/background_image/image_1.png");
+        .text_basic_settings {
+            overflow-wrap: break-word;
+            white-space:pre-wrap; 
+            font-family: "Noto Sans TC", sans-serif;
+        }
+
+        .image_basic_settings {
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
         }
 
-        .background_image_2 {
-            padding: 5px;
-            background-image: url("./static/background_image/image_2.png");
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: center;
+        .line_spacing_basic_settings {
+            content:"";
+            margin: -0em;
+            display:block;
+        }
+
+        .author_name_literal_parameters {
+            font-size:16px;
+            line-height:1.2;
+            color: #fff;
+        }
+
+        .author_name_background_image_1 {
+            padding: 0.25em;
+            background-image: url("./static/background_image/author_name_image_1.png");
+            position: relative;
+            top: 0.5em;
+            left: 0.5em;
+            z-index: 10;
+        }
+
+        .message_literal_parameters {
+            font-size:16px;
+            line-height:1.2;
+            color: #333;
+        }
+
+        .message_background_image_1 {
+            padding: 0.5em;
+            background-image: url("./static/background_image/message_image_1.png");
+        }
+
+        .message_background_image_2 {
+            padding: 0.5em;
+            background-image: url("./static/background_image/message_image_2.png");
+            /*position: absolute;
+            right: 0;*/
         }
     </style>
 </head>
 
 <body>
     <b>
-        <div class="Display_range Literal_parameters">
+        <div class="Display_range">
             <div id="text_to_display"></div>
         </div>
     </b>
