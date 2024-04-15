@@ -29,33 +29,33 @@
 
             // Socket.IO send_message message
             socket.on('send_message', function (data) {
-                var author_name_line_spacing = document.createElement('br');
+                var author_name_line_spacing = document.createElement('div');
                 var author_name = document.createElement('div');
                 var author_name_background_image_1 = document.createElement('div');
 
-                var message_line_spacing = document.createElement('br');
+                var message_line_spacing = document.createElement('div');
                 var message = document.createElement('div');
                 var message_background_image_1 = document.createElement('div');
                 var message_background_image_2 = document.createElement('div');
 
-                author_name.className = "scope_box text_basic_settings author_name_literal_parameters";
+                author_name.className = "chat_box author_name_literal_parameters";
                 author_name.textContent = data.author_name;
 
-                author_name_background_image_1.className = "author_name_background_image_1 image_basic_settings";
+                author_name_background_image_1.className = "author_name_background_image_1";
                 author_name_background_image_1.appendChild(author_name);
 
-                author_name_line_spacing.className = "line_spacing_basic_settings";
+                author_name_line_spacing.className = "author_name_line_spacing";
 
-                message.className = "scope_box text_basic_settings message_literal_parameters";
+                message.className = "chat_box message_literal_parameters";
                 message.textContent = data.message;
 
-                message_background_image_1.className = "message_background_image_1 image_basic_settings";
+                message_background_image_1.className = "message_background_image_1";
                 message_background_image_1.appendChild(message);
 
-                message_background_image_2.className = "message_background_image_2 image_basic_settings";
+                message_background_image_2.className = "message_background_image_2";
                 message_background_image_2.appendChild(message_background_image_1);
 
-                message_line_spacing.className = "line_spacing_basic_settings";
+                message_line_spacing.className = "message_line_spacing";
                 
                 document.getElementById('text_to_display').appendChild(author_name_background_image_1);
                 document.getElementById('text_to_display').appendChild(author_name_line_spacing);
@@ -73,39 +73,20 @@
     </script>
     <style>
         .Display_range {
-            width: 100vw;
-            height: 100vh;
-            display: table;
-        }
-
-        .Display_range div {
-            display: table-cell;
-            vertical-align: bottom;
-            text-align: left;
-        }
-
-        .scope_box {
-            max-width: 90vw;
-            width: 100%;
+            width: 90vw;
             height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            padding-left: 2em;
+            padding-right: 2em;
         }
 
-        .text_basic_settings {
+        .chat_box {
+            max-width: 90vw;
             overflow-wrap: break-word;
             white-space:pre-wrap; 
             font-family: "Noto Sans TC", sans-serif;
-        }
-
-        .image_basic_settings {
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .line_spacing_basic_settings {
-            content:"";
-            margin: -0em;
-            display:block;
         }
 
         .author_name_literal_parameters {
@@ -117,10 +98,15 @@
         .author_name_background_image_1 {
             padding: 0.25em;
             background-image: url("./static/background_image/author_name_image_1.png");
-            position: relative;
-            top: 0.5em;
-            left: 0.5em;
+            margin-bottom: -0.5em;
+            margin-left: 0.5em;
+            margin-right: 0.5em;
             z-index: 10;
+        }
+        
+        .author_name_line_spacing {
+            margin-top: 0em;
+            margin-left: 100%;
         }
 
         .message_literal_parameters {
@@ -137,17 +123,18 @@
         .message_background_image_2 {
             padding: 0.5em;
             background-image: url("./static/background_image/message_image_2.png");
-            /*position: absolute;
-            right: 0;*/
+        }
+
+        .message_line_spacing {
+            margin-top: 0.5em;
+            margin-left: 100%;
         }
     </style>
 </head>
 
 <body>
     <b>
-        <div class="Display_range">
-            <div id="text_to_display"></div>
-        </div>
+        <div class="Display_range" id="text_to_display"></div>
     </b>
 </body>
 </html>
