@@ -19,7 +19,7 @@ def get_youtube_live_video_id(youtube_channel_id):
     return youtube_html.status_code, youtube_html.content.decode()
 
 def youtube_html_process(youtube_html_content):
-    video_id_search = re.search(r"(?<=https://www\.youtube\.com/watch\?v=)[a-zA-Z0-9]+", youtube_html_content)
+    video_id_search = re.search(r"(?<=https://www\.youtube\.com/watch\?v=)[a-zA-Z0-9-_]+", youtube_html_content)
     return video_id_search
 
 get_status_code, get_content = get_youtube_live_video_id(config.youtube_channel_id)
@@ -35,7 +35,7 @@ if get_status_code == 200:
             YouTube_chat = pytchat.create(video_id=video_id) #讀取直播
 
             command = ["python", "web_chat_room/app.py"] #指令和傳遞參數
-            web_chat_room = subprocess.Popen(command, stdout=subprocess.PIPE) #呼叫Youtube_Chat.py
+            web_chat_room = subprocess.Popen(command, stdout=subprocess.PIPE) #呼叫web_chat_room
 
             def Execute_at_the_end():
                 YouTube_chat.terminate() #停止獲取聊天室
