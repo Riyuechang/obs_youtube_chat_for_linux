@@ -1,0 +1,6 @@
+requests
+pytchat
+loguru
+flask
+flask_socketio
+PyYAML
